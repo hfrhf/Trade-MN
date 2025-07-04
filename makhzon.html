@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مدير التجارة الصغيرة</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" xintegrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+   
+    <style>
+       
+    </style>
+</head>
+<body>
+
+    <!-- Main Container -->
+    <div class="container-fluid p-3 p-md-4">
+        <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4">
+            <a href="#" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+                <i class="bi bi-shop-window fs-2 me-2" style="color: var(--primary-color);"></i>
+                <span class="fs-4 header-title">مدير التجارة</span>
+            </a>
+    
+            <div class="col-md-3 text-end">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductModal">
+                    <i class="bi bi-plus-circle me-1"></i> إضافة منتج جديد
+                </button>
+            </div>
+        </header>
+
+        <div class="row g-4">
+            <!-- Navigation -->
+            <div class="col-lg-3">
+                <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <button class="nav-link active" id="v-pills-dashboard-tab" data-bs-toggle="pill" data-bs-target="#v-pills-dashboard" type="button" role="tab" aria-controls="v-pills-dashboard" aria-selected="true"><i class="bi bi-speedometer2 me-2"></i>لوحة التحكم</button>
+                    <button class="nav-link" id="v-pills-inventory-tab" data-bs-toggle="pill" data-bs-target="#v-pills-inventory" type="button" role="tab" aria-controls="v-pills-inventory" aria-selected="false"><i class="bi bi-boxes me-2"></i>إدارة المخزون</button>
+                    <button class="nav-link" id="v-pills-sales-tab" data-bs-toggle="pill" data-bs-target="#v-pills-sales" type="button" role="tab" aria-controls="v-pills-sales" aria-selected="false"><i class="bi bi-receipt me-2"></i>سجل المبيعات</button>
+                    <button class="nav-link" id="v-pills-reports-tab" data-bs-toggle="pill" data-bs-target="#v-pills-reports" type="button" role="tab" aria-controls="v-pills-reports" aria-selected="false"><i class="bi bi-bar-chart-line me-2"></i>التقارير المالية</button>
+                    <button class="nav-link" id="v-pills-data-tab" data-bs-toggle="pill" data-bs-target="#v-pills-data" type="button" role="tab" aria-controls="v-pills-data" aria-selected="false"><i class="bi bi-database-down me-2"></i>البيانات</button>
+                </div>
+            </div>
+
+            <!-- Tab Content -->
+            <div class="col-lg-9">
+                <div class="tab-content" id="v-pills-tabContent">
+                    <!-- Dashboard -->
+                    <div class="tab-pane fade show active" id="v-pills-dashboard" role="tabpanel" aria-labelledby="v-pills-dashboard-tab">
+                        <div class="row g-4">
+                            <!-- Stats Cards -->
+                            <div class="col-md-6">
+                                <div class="card stat-card">
+                                    <div class="card-body">
+                                        <div class="stat-icon" style="background-color: #3498db;"><i class="bi bi-cash-stack"></i></div>
+                                        <div>
+                                            <h5 class="card-title">إجمالي الربح</h5>
+                                            <p class="card-text mb-0" id="total-profit">0.00 د.ج</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card stat-card">
+                                     <div class="card-body">
+                                        <div class="stat-icon" style="background-color: #2ecc71;"><i class="bi bi-calendar-check"></i></div>
+                                        <div>
+                                            <h5 class="card-title">ربح الشهر الحالي</h5>
+                                            <p class="card-text mb-0" id="monthly-profit">0.00 د.ج</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card stat-card">
+                                     <div class="card-body">
+                                        <div class="stat-icon" style="background-color: #f1c40f;"><i class="bi bi-box-seam"></i></div>
+                                        <div>
+                                            <h5 class="card-title">عدد المنتجات</h5>
+                                            <p class="card-text mb-0" id="products-count">0</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card stat-card">
+                                     <div class="card-body">
+                                        <div class="stat-icon" style="background-color: #e74c3c;"><i class="bi bi-exclamation-triangle"></i></div>
+                                        <div>
+                                            <h5 class="card-title">مخزون منخفض</h5>
+                                            <p class="card-text mb-0" id="low-stock-count">0</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Profit Chart -->
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        الأرباح الشهرية (آخر 6 أشهر)
+                                    </div>
+                                    <div class="card-body">
+                                        <canvas id="profitChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Inventory -->
+                    <div class="tab-pane fade" id="v-pills-inventory" role="tabpanel" aria-labelledby="v-pills-inventory-tab">
+                        <div class="card">
+                            <div class="card-header">
+                                قائمة المنتجات في المخزون
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover align-middle">
+                                        <thead>
+                                            <tr>
+                                                <th>الصورة</th>
+                                                <th>المنتج</th>
+                                                <th>الكمية / الحالة</th>
+                                                <th>سعر الشراء</th>
+                                                <th>سعر البيع</th>
+                                                <th>إجراءات</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="inventory-table-body">
+                                            <!-- Products will be populated here by JS -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sales Log -->
+                    <div class="tab-pane fade" id="v-pills-sales" role="tabpanel" aria-labelledby="v-pills-sales-tab">
+                        <div class="card">
+                            <div class="card-header">
+                                سجل المبيعات
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>اسم المنتج</th>
+                                                <th>الكمية</th>
+                                                <th>إجمالي البيع</th>
+                                                <th>الربح</th>
+                                                <th>تاريخ البيع</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="sales-log-body">
+                                            <!-- Sales will be populated here by JS -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Financial Reports -->
+                    <div class="tab-pane fade" id="v-pills-reports" role="tabpanel" aria-labelledby="v-pills-reports-tab">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <span>التقرير المالي الشهري</span>
+                                <div class="d-flex">
+                                    <select id="report-month-select" class="form-select form-select-sm me-2"></select>
+                                    <select id="report-year-select" class="form-select form-select-sm"></select>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row g-3 mb-4 text-center" id="financial-summary">
+                                    <div class="col-md-6 col-lg-3">
+                                        <div class="p-3 bg-light rounded">
+                                            <h6 class="text-muted">إجمالي الإيرادات</h6>
+                                            <p class="fs-4 fw-bold text-success mb-0" id="report-total-revenue">0.00</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-lg-3">
+                                        <div class="p-3 bg-light rounded">
+                                            <h6 class="text-muted">تكلفة المبيعات</h6>
+                                            <p class="fs-4 fw-bold text-danger mb-0" id="report-total-cogs">0.00</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-lg-3">
+                                        <div class="p-3 bg-light rounded">
+                                            <h6 class="text-muted">صافي الربح/الخسارة</h6>
+                                            <p class="fs-4 fw-bold text-primary mb-0" id="report-net-profit">0.00</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-lg-3">
+                                        <div class="p-3 bg-light rounded">
+                                            <h6 class="text-muted">قيمة المخزون (الأصول)</h6>
+                                            <p class="fs-4 fw-bold text-info mb-0" id="report-asset-value">0.00</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h5 class="mb-3">تفاصيل المبيعات للشهر المحدد</h5>
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>المنتج</th>
+                                                <th>الكمية المباعة</th>
+                                                <th>إجمالي الإيرادات</th>
+                                                <th>إجمالي التكلفة</th>
+                                                <th>صافي الربح</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="financial-details-body">
+                                            <!-- Report details will be populated here -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Data Management -->
+                    <div class="tab-pane fade" id="v-pills-data" role="tabpanel" aria-labelledby="v-pills-data-tab">
+                        <div class="card">
+                            <div class="card-header">إدارة البيانات</div>
+                            <div class="card-body">
+                                <p class="card-text">يمكنك تصدير بياناتك بالكامل كنسخة احتياطية، أو استيرادها لاستعادة حالتك السابقة.</p>
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                                    <button class="btn btn-secondary" id="export-json-btn"><i class="bi bi-filetype-json me-2"></i>تصدير إلى JSON</button>
+                                    <button class="btn btn-success" id="export-excel-btn"><i class="bi bi-file-earmark-excel me-2"></i>تصدير إلى Excel</button>
+                                    <button class="btn btn-info text-white" onclick="document.getElementById('import-file-input').click();"><i class="bi bi-upload me-2"></i>استيراد من JSON</button>
+                                    <input type="file" id="import-file-input" class="d-none" accept=".json">
+                                </div>
+                                <hr class="my-4">
+                                <p class="card-text text-danger fw-bold">منطقة الخطر</p>
+                                <p>تحذير: الإجراء التالي سيحذف جميع المنتجات والمبيعات بشكل نهائي.</p>
+                                <button class="btn btn-danger" id="delete-all-data-btn"><i class="bi bi-trash3 me-2"></i>حذف كل البيانات</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Product Modal -->
+    <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addProductModalLabel">إضافة منتج جديد</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="product-form">
+                        <input type="hidden" id="product-id">
+                        <input type="hidden" id="existing-image-url">
+                        <div class="mb-3">
+                            <label for="product-name" class="form-label">اسم المنتج</label>
+                            <input type="text" class="form-control" id="product-name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="product-image" class="form-label">صورة المنتج</label>
+                            <input class="form-control" type="file" id="product-image" accept="image/*">
+                            <img id="image-preview" src="#" alt="معاينة الصورة" class="mt-2" style="max-height: 100px; display: none; border-radius: 8px;">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="product-quantity" class="form-label">الكمية</label>
+                                <input type="number" class="form-control" id="product-quantity" required min="0">
+                            </div>
+                             <div class="col-md-6 mb-3">
+                                <label for="product-purchase-price" class="form-label">سعر الشراء (للقطعة)</label>
+                                <input type="number" class="form-control" id="product-purchase-price" required min="0" step="0.01">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="product-selling-price" class="form-label">سعر البيع (للقطعة)</label>
+                            <input type="number" class="form-control" id="product-selling-price" required min="0" step="0.01">
+                        </div>
+                        <div class="mb-3">
+                            <label for="product-notes" class="form-label">ملاحظات (اختياري)</label>
+                            <textarea class="form-control" id="product-notes" rows="2"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
+                            <button type="submit" class="btn btn-primary" id="save-product-btn">حفظ المنتج</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sell Product Modal -->
+    <div class="modal fade" id="sellProductModal" tabindex="-1" aria-labelledby="sellProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="sellProductModalLabel">تسجيل عملية بيع</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="sell-form">
+                        <input type="hidden" id="sell-product-id">
+                        <p>المنتج: <strong id="sell-product-name" class="text-primary"></strong></p>
+                        <p>الكمية المتاحة: <strong id="sell-product-available-quantity"></strong></p>
+                        <div class="mb-3">
+                            <label for="sell-quantity" class="form-label">الكمية المباعة</label>
+                            <input type="number" class="form-control" id="sell-quantity" required min="1">
+                        </div>
+                        <div class="mb-3">
+                            <label for="sell-actual-price" class="form-label">سعر البيع الفعلي (للقطعة)</label>
+                            <input type="number" class="form-control" id="sell-actual-price" required min="0" step="0.01">
+                        </div>
+                         <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                            <button type="submit" class="btn btn-success">تأكيد البيع</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container for Notifications -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="app-toast" class="toast align-items-center text-white border-0" role="alert" aria-live="assertive" aria-atomic="true">
+          <div class="d-flex">
+            <div class="toast-body"></div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+          </div>
+        </div>
+    </div>
+
+    <!-- External Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    
+    <!-- Application Logic -->
+<script src="main.js"></script>
+</body>
+</html>
